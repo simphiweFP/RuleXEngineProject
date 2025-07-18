@@ -2,37 +2,117 @@
 using RuleXEngineProject.Models;
 using RuleXEngineProject.Rules;
 
-var input = new RuleInputModel
+class Program
 {
-    Age = 35,
-    Country = CountryCode.ZA,
-    Income = 60000,
-    MaxCover = 500000,
-    SmokingStatus = SmokingStatus.NonSmoker,
-    OccupationRisk = RiskLevel.Medium,
-    MedicalConditionStatus = MedicalConditionStatus.Minor,
-    NumberOfDependents = 2,
-    EmploymentStatus = EmploymentStatus.Employed
-};
+    static void Main()
+    {
+        // === INPUT COLLECTION ===
+        Console.WriteLine("=== Insurance Quotation ===");
 
-var rules = new List<IRule<RuleInputModel>>
-{
-    new AgeRule(),
-    new CountryRule(),
-    new SmokerRule(),
-    new NumberOfDependentsRule(),
-    new EmployedStatusRule(),
-    new MaximumCoverRule(),
-    new MedicalConditionRule(),
-    new OccupationRiskRule(),
+        Console.Write("Enter Age: ");
+        int age = int.Parse(Console.ReadLine());
 
-};
+        Console.Write("Enter Country Code (ZA/US/UK): ");
+        CountryCode country = Enum.Parse<CountryCode>(Console.ReadLine().ToUpper());
 
-var engine = new RuleEngine<RuleInputModel>(rules);
-var results = engine.Evaluate(input);
+        Console.Write("Enter Annual Income: ");
+        decimal income = decimal.Parse(Console.ReadLine());
 
-foreach (var result in results)
-{
-    Console.WriteLine($"{result.RuleName}: {(result.IsSuccessful ? "✅" : "❌")} - {result.Message}");
+        Console.Write("Enter Maximum Cover Required: ");
+        decimal maxCover = decimal.Parse(Console.ReadLine());
+
+        Console.Write("Smoking Status (Smoker/NonSmoker): ");
+        SmokingStatus smokingStatus = Enum.Parse<SmokingStatus>(Console.ReadLine());
+
+        Console.Write("Occupation Risk Level (Low/Medium/High): ");
+        RiskLevel occupationRisk = Enum.Parse<RiskLevel>(Console.ReadLine());
+
+        Console.Write("Medical Condition Status (None/Minor/Severe): ");
+        MedicalConditionStatus medicalCondition = Enum.Parse<MedicalConditionStatus>(Console.ReadLine());
+
+        Console.Write("Number of Dependents: ");
+        int dependents = int.Parse(Console.ReadLine());
+
+        Console.Write("Employment Status (Employed/SelfEmployed/Unemployed): ");
+        EmploymentStatus employmentStatus = Enum.Parse<EmploymentStatus>(Console.ReadLine());
+
+
+        // === BUILD INPUT MODEL ===
+        var input = new RuleInputModel
+        {
+            Age = age,
+            Country = country,
+            Income = income,
+            MaxCover = maxCover,
+            SmokingStatus = smokingStatus,
+            OccupationRisk = occupationRisk,
+            MedicalConditionStatus = medicalCondition,
+            NumberOfDependents = dependents,
+            EmploymentStatus = employmentStatus
+        };
+
+
+        // === RULE ENGINE SETUP ===
+        var rules = new List<IRule<RuleInputModel>>
+        {
+            new AgeRule(),
+            new CountryRule(),
+            new SmokerRule(),
+            new NumberOfDependentsRule(),
+            new EmployedStatusRule(),
+            new MaximumCoverRule(),
+            new MedicalConditionRule(),
+            new OccupationRiskRule()
+        };
+
+        var engine = new RuleEngine<RuleInputModel>(rules);
+        var results = engine.Evaluate(input);
+
+
+        // === RULE EVALUATION RESULTS ===
+        Console.WriteLine("\n=== Evaluation Results ===");
+
+        foreach (var result in results)
+        {
+            if (!string.IsNullOrWhiteSpace(result.RuleName))
+            {
+                if (result.IsSuccessful)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"[PASSED] {result.RuleName}: {result.Message}");
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"[FAILED] {result.RuleName}: {result.Message}");
+                }
+
+                Console.ResetColor();
+            }
+        }
+
+
+        // === QUOTATION SUMMARY ===
+        Console.WriteLine();
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("╔════════════════════════════════════════╗");
+        Console.WriteLine("║          Quotation Summary             ║");
+        Console.WriteLine("╚════════════════════════════════════════╝");
+        Console.ResetColor();
+
+        Console.WriteLine("Congratulations! You qualify for coverage.");
+        Console.WriteLine();
+
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("Estimated Monthly Premium: R500.00");
+        Console.ResetColor();
+
+        Console.WriteLine();
+        Console.ForegroundColor = ConsoleColor.DarkYellow;
+        Console.WriteLine("──────────────────────────────────────────");
+        Console.WriteLine("Thank you for using our Insurance Tool!");
+        Console.WriteLine("Have a great day!");
+        Console.WriteLine("──────────────────────────────────────────");
+        Console.ResetColor();
+    }
 }
-

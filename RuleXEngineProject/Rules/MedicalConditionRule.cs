@@ -9,19 +9,25 @@ namespace RuleXEngineProject.Rules
 {
     public class MedicalConditionRule : IRule<RuleInputModel>
     {
+        public string RuleName => nameof(MedicalConditionRule);
         public RuleResult Evaluate(RuleInputModel input)
         {
             if (input.MedicalConditionStatus != MedicalConditionStatus.None)
             {
                 return new RuleResult
                 {
-                    RuleName = "Medical Condition Rule",
+                    RuleName = this.RuleName,
                     IsSuccessful = false,
-                    Message = "Medical Condition require premium loading."
+                    Message = "Medical Condition require manual review."
                 };
             }
 
-            return new RuleResult { IsSuccessful = true };
+            return new RuleResult 
+            {
+                RuleName = this.RuleName,
+                IsSuccessful = true, 
+                Message = "Applicant meets Medical Condition requirements."
+            };
         }
     }
 }

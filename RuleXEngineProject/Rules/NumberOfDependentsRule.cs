@@ -9,6 +9,7 @@ namespace RuleXEngineProject.Rules
 {
    public class NumberOfDependentsRule : IRule<RuleInputModel>
     {
+        public string RuleName => nameof(NumberOfDependentsRule);
         public RuleResult Evaluate(RuleInputModel input)
         {
             if (input.NumberOfDependents > 5)
@@ -21,7 +22,12 @@ namespace RuleXEngineProject.Rules
                 };
             }
 
-            return new RuleResult { IsSuccessful = true };
+            return new RuleResult 
+            {
+                RuleName = this.RuleName, 
+                IsSuccessful = true,
+                Message = "Applicant Number Of Dependent meets requirements."
+            };
         }
     }
 }

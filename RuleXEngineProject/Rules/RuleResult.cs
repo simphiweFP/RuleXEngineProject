@@ -11,6 +11,6 @@ namespace RuleXEngineProject.Rules
         public bool IsSuccessful { get; set; }
         public string Message { get; set; }
         public string RuleName { get; set; }
-
+        public decimal Premium { get; set; }
     }
 }
