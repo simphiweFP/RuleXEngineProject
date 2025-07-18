@@ -88,6 +88,7 @@ class Program
                 Console.ResetColor();
         }
 
+        var premiumResult = results.FirstOrDefault(r => r.RuleName == nameof(MaximumCoverRule));
 
         //QUOTATION SUMMARY 
         Console.WriteLine();
@@ -97,12 +98,31 @@ class Program
         Console.WriteLine("╚════════════════════════════════════════╝");
         Console.ResetColor();
 
-        Console.WriteLine("Congratulations! You qualify for coverage.");
-        Console.WriteLine();
+        bool allRulesPassed = results.TrueForAll(r => r.IsSuccessful);
 
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("Estimated Monthly Premium: R500.00");
-        Console.ResetColor();
+        if (allRulesPassed)
+        {
+            Console.WriteLine("Congratulations! Your application is fully approved.");
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"Estimated Monthly Premium: R{premiumResult.Premium:F2}");
+            Console.ResetColor();
+        }
+        else
+        {
+            Console.WriteLine("Some conditions require manual review.");
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"Estimated Monthly Premium: R{premiumResult.Premium:F2} (Subject to change)");
+            Console.ResetColor();
+
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Note: This quote is provisional and subject to underwriter review.");
+            Console.ResetColor();
+        }
 
         Console.WriteLine();
         Console.ForegroundColor = ConsoleColor.DarkYellow;
