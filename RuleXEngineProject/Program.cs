@@ -52,7 +52,7 @@ class Program
         };
 
 
-        //RULE ENGINE SETUP
+        //RULE ENGINE 
         var rules = new List<IRule<RuleInputModel>>
         {
             new AgeRule(),
