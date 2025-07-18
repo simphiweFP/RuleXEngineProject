@@ -19,7 +19,7 @@ namespace RuleXEngineProject.Rules
                 {
                     RuleName = this.RuleName,
                     IsSuccessful = false,
-                    Message = "Smoker applicants require manual review."
+                    Message = "Country Code applicants require manual review."
                 };
             }
 
