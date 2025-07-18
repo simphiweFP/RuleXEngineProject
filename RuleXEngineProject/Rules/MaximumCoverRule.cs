@@ -31,7 +31,7 @@ namespace RuleXEngineProject.Rules
                 basePremium *= 1.5m;
             }
 
-            if (input.MedicalConditionStatus == MedicalConditionStatus.Minor)
+            if (input.MedicalConditionStatus != MedicalConditionStatus.None)
             {
                 basePremium *= 1.4m;
             }
