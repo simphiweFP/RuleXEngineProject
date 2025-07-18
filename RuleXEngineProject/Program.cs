@@ -74,8 +74,6 @@ class Program
 
         foreach (var result in results)
         {
-            if (!string.IsNullOrWhiteSpace(result.RuleName))
-            {
                 if (result.IsSuccessful)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -88,7 +86,6 @@ class Program
                 }
 
                 Console.ResetColor();
-            }
         }
 
 
