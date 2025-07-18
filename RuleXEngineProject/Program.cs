@@ -6,7 +6,7 @@ class Program
 {
     static void Main()
     {
-        // === INPUT COLLECTION ===
+        //INPUT COLLECTION 
         Console.WriteLine("=== Insurance Quotation ===");
 
         Console.Write("Enter Age: ");
@@ -37,7 +37,7 @@ class Program
         EmploymentStatus employmentStatus = Enum.Parse<EmploymentStatus>(Console.ReadLine());
 
 
-        // === BUILD INPUT MODEL ===
+        //BUILD INPUT MODEL 
         var input = new RuleInputModel
         {
             Age = age,
@@ -52,7 +52,7 @@ class Program
         };
 
 
-        // === RULE ENGINE SETUP ===
+        //RULE ENGINE SETUP
         var rules = new List<IRule<RuleInputModel>>
         {
             new AgeRule(),
@@ -69,7 +69,7 @@ class Program
         var results = engine.Evaluate(input);
 
 
-        // === RULE EVALUATION RESULTS ===
+        //RULE EVALUATION RESULTS 
         Console.WriteLine("\n=== Evaluation Results ===");
 
         foreach (var result in results)
@@ -89,7 +89,7 @@ class Program
         }
 
 
-        // === QUOTATION SUMMARY ===
+        //QUOTATION SUMMARY 
         Console.WriteLine();
         Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine("╔════════════════════════════════════════╗");
