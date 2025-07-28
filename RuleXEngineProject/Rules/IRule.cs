@@ -1,4 +1,4 @@
-﻿using RuleXEngineProject.Models;
+using RuleXEngineProject.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,7 @@ namespace RuleXEngineProject.Rules
 {
     public interface IRule<T>
     {
+        string RuleName { get; }
         RuleResult Evaluate(T input);
     }
 }
