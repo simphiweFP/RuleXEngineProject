@@ -23,6 +23,13 @@ class Program
         
         if (showExamples == "y" || showExamples == "yes")
         {
+            // Show generic interface explanation first
+            RuleXEngineProject.Examples.GenericInterfaceExplanation.RunAllExplanations();
+            
+            Console.WriteLine("\nPress any key to continue to Builder pattern examples...");
+            Console.ReadKey();
+            Console.Clear();
+            
             // Show why Builder pattern is important
             WhyBuilderMatters.RunAllExamples();
             
