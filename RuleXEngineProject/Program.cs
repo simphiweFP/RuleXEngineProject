@@ -7,6 +7,7 @@ using RuleXEngineProject.Logging;
 using RuleXEngineProject.Models;
 using RuleXEngineProject.Rules;
 using RuleXEngineProject.Examples;
+using static RuleXEngineProject.Examples.WhyBuilderMatters;
 
 class Program
 {
@@ -22,6 +23,13 @@ class Program
         
         if (showExamples == "y" || showExamples == "yes")
         {
+            // Show why Builder pattern is important
+            WhyBuilderMatters.RunAllExamples();
+            
+            Console.WriteLine("\nPress any key to continue to other examples...");
+            Console.ReadKey();
+            Console.Clear();
+            
             QuickStartGuide.QuickStart();
             QuickStartGuide.ExecutionModeShowcase();
             
